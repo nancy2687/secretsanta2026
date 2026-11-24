@@ -1,0 +1,622 @@
+
+/* ==============================
+   VARIABLES
+================================= */
+
+:root {
+    --vert-sapin: #173f35;
+    --vert-clair: #285847;
+    --vert-profond: #102d26;
+
+    --rouge: #8b2635;
+    --rouge-clair: #a63a49;
+
+    --creme: #fff8ed;
+    --creme-fonce: #eee2d0;
+
+    --dore: #d6b46a;
+    --blanc: #ffffff;
+}
+
+
+/* ==============================
+   GENERAL
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        linear-gradient(
+            rgba(12, 35, 29, 0.68),
+            rgba(12, 35, 29, 0.78)
+        ),
+        url("fond_ecran.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    color: var(--creme);
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* ==============================
+   HEADER / NAVIGATION
+================================= */
+
+header {
+    background-color: rgba(16, 45, 38, 0.95);
+
+    color: var(--creme);
+
+    padding: 20px 40px;
+
+    position: relative;
+    z-index: 10;
+
+    border-bottom: 1px solid rgba(214, 180, 106, 0.4);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+nav a {
+    font-weight: bold;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--dore);
+}
+
+nav a.active {
+    color: var(--dore);
+}
+
+
+/* ==============================
+   INTRODUCTION
+================================= */
+
+#intro-jeux {
+    background-color: rgba(16, 45, 38, 0.88);
+
+    border: 1px solid rgba(214, 180, 106, 0.45);
+
+    border-radius: 20px;
+
+    max-width: 1000px;
+
+    margin: 50px auto;
+
+    text-align: center;
+
+    padding: 70px 30px 50px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.sous-titre {
+    color: var(--dore);
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 20px;
+}
+
+#intro-jeux h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+
+    margin-bottom: 25px;
+
+    color: var(--creme);
+}
+
+#intro-jeux > p:not(.sous-titre) {
+    max-width: 650px;
+
+    margin: auto;
+
+    line-height: 1.8;
+
+    font-size: 1.1rem;
+
+    color: #f0e4d3;
+}
+
+.separateur {
+    color: var(--dore);
+
+    font-size: 1.5rem;
+
+    margin-top: 30px;
+}
+
+
+/* ==============================
+   NEIGE ANIMEE
+================================= */
+
+#falling-snow-container {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 15;
+}
+
+.snowflake {
+    position: absolute;
+
+    top: -10px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation-name: snowfall;
+
+    animation-timing-function: linear;
+
+    animation-iteration-count: infinite;
+}
+
+
+/* ANIMATION */
+
+@keyframes snowfall {
+
+    0% {
+        transform: translate3d(0, -10px, 0);
+    }
+
+    100% {
+        transform: translate3d(var(--wind), 110vh, 0);
+    }
+
+}
+
+
+/* ACCESSIBILITÉ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #falling-snow-container {
+        display: none;
+    }
+
+}
+
+
+/* ==============================
+   LISTE DES JEUX
+================================= */
+
+#liste-jeux {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(270px, 1fr));
+
+    gap: 30px;
+
+    padding: 40px;
+
+    max-width: 1400px;
+
+    margin: auto;
+}
+
+
+/* ==============================
+   CARTES
+================================= */
+
+.carte-jeu {
+    background-color: var(--creme-fonce);
+
+    color: var(--vert-sapin);
+
+    border: 1px solid rgba(214, 180, 106, 0.6);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    z-index: 1;
+}
+
+.carte-jeu:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ==============================
+   ILLUSTRATIONS
+================================= */
+
+.illustration {
+    height: 220px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    color: var(--blanc);
+}
+
+.illustration span {
+    font-size: 5rem;
+
+    transition: transform 0.3s ease;
+}
+
+.carte-jeu:hover .illustration span {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.illustration p {
+    font-size: 1.2rem;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* COULEURS DES ILLUSTRATIONS */
+
+.santa {
+    background:
+        linear-gradient(
+            135deg,
+            #721e2d,
+            #a43b49
+        );
+}
+
+.cadeaux {
+    background:
+        linear-gradient(
+            135deg,
+            #102d26,
+            #285847
+        );
+}
+
+.bonhomme {
+    background:
+        linear-gradient(
+            135deg,
+            #365b70,
+            #527d96
+        );
+}
+
+.noel {
+    background:
+        linear-gradient(
+            135deg,
+            #785724,
+            #a98944
+        );
+}
+
+
+/* ==============================
+   CONTENU DES CARTES
+================================= */
+
+.contenu-jeu {
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.categorie {
+    color: var(--rouge);
+
+    font-size: 0.75rem;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+.contenu-jeu h2 {
+    font-size: 1.5rem;
+
+    margin-bottom: 15px;
+
+    color: var(--vert-sapin);
+}
+
+.contenu-jeu p {
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+
+    color: #49443d;
+}
+
+
+/* ==============================
+   BOUTONS
+================================= */
+
+.carte-jeu .bouton {
+    display: inline-block;
+
+    background-color: var(--rouge);
+
+    color: var(--blanc);
+
+    padding: 13px 20px;
+
+    border-radius: 30px;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    margin-top: auto;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.carte-jeu .bouton:hover {
+    background-color: var(--vert-clair);
+
+    transform: scale(1.03);
+}
+
+.carte-jeu .bouton:focus-visible {
+    outline: 3px solid var(--dore);
+
+    outline-offset: 4px;
+}
+
+
+/* ==============================
+   MESSAGE FINAL
+================================= */
+
+#message-final {
+    text-align: center;
+
+    background-color: rgba(16, 45, 38, 0.92);
+
+    color: var(--creme);
+
+    padding: 60px 20px;
+
+    margin-top: 40px;
+
+    border-top: 1px solid rgba(214, 180, 106, 0.5);
+    border-bottom: 1px solid rgba(214, 180, 106, 0.5);
+}
+
+#message-final h2 {
+    font-size: 2rem;
+
+    margin-bottom: 20px;
+
+    color: var(--dore);
+}
+
+#message-final p {
+    line-height: 1.8;
+}
+
+.decoration {
+    font-size: 2rem;
+
+    margin-bottom: 15px;
+}
+
+
+/* ==============================
+   FOOTER
+================================= */
+
+footer {
+    background-color: rgba(114, 30, 45, 0.96);
+
+    color: var(--creme);
+
+    text-align: center;
+
+    padding: 25px;
+
+    line-height: 1.8;
+
+    border-top: 1px solid rgba(214, 180, 106, 0.5);
+}
+
+
+/* ==============================
+   RESPONSIVE
+================================= */
+
+@media screen and (max-width: 600px) {
+
+    header {
+        padding: 20px 15px;
+    }
+
+    nav ul {
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    #intro-jeux {
+        padding: 50px 20px 30px;
+
+        margin: 25px 15px;
+    }
+
+    #intro-jeux h1 {
+        font-size: 2rem;
+    }
+
+    #liste-jeux {
+        padding: 20px;
+
+        gap: 25px;
+    }
+
+    .illustration {
+        height: 180px;
+    }
+
+    #message-final {
+        padding: 40px 20px;
+    }
+
+    #message-final h2 {
+        font-size: 1.6rem;
+    }
+
+}
+
+
+/* ==============================
+   ACCESSIBILITÉ
+================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+}
+/* ==============================
+   COULEURS DES TEXTES
+================================= */
+
+/* Introduction : texte clair sur vert */
+
+#intro-jeux,
+#intro-jeux h1,
+#intro-jeux p {
+    color: var(--creme);
+}
+
+#intro-jeux .sous-titre,
+#intro-jeux .separateur {
+    color: var(--dore);
+}
+
+
+/* Cartes : texte vert sur crème */
+
+.carte-jeu {
+    color: var(--vert-sapin);
+}
+
+.contenu-jeu h2 {
+    color: var(--vert-sapin);
+}
+
+.contenu-jeu p {
+    color: #40372e;
+}
+
+.categorie {
+    color: var(--rouge);
+}
+
+
+/* Footer : texte clair sur rouge */
+
+footer,
+footer p {
+    color: var(--creme);
+}
+
+
+/* Message final : texte clair sur vert */
+
+#message-final,
+#message-final h2,
+#message-final p {
+    color: var(--creme);
+}
+
+#message-final h2 {
+    color: var(--dore);
+}

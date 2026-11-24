@@ -1,0 +1,641 @@
+
+/* ==========================================
+   VARIABLES
+========================================== */
+
+:root {
+    --vert-sapin: #173f35;
+    --vert-profond: #0d2922;
+    --vert-clair: #285847;
+
+    --rouge: #8b2635;
+    --rouge-clair: #a63849;
+
+    --creme: #fff8ed;
+    --blanc: #ffffff;
+
+    --dore: #d6b46a;
+    --dore-clair: #f0d99b;
+
+    --ombre: rgba(0, 0, 0, 0.25);
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background-color: var(--vert-profond);
+
+    color: var(--creme);
+
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   FOND
+========================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(214, 180, 106, 0.12),
+            transparent 50%
+        ),
+        linear-gradient(
+            135deg,
+            var(--vert-sapin),
+            var(--vert-profond)
+        );
+}
+
+
+/* ==========================================
+   NEIGE ANIMEE
+========================================== */
+
+#falling-snow-container {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 5;
+}
+
+
+.snowflake {
+    position: absolute;
+
+    top: -10px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation-name: snowfall;
+
+    animation-timing-function: linear;
+
+    animation-iteration-count: infinite;
+}
+
+
+/* Animation de chute */
+
+@keyframes snowfall {
+
+    0% {
+        transform: translate3d(0, -10px, 0);
+    }
+
+    100% {
+        transform: translate3d(var(--wind), 110vh, 0);
+    }
+
+}
+
+
+/* Accessibilité : désactiver les animations
+   si l'utilisateur préfère moins de mouvement */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #falling-snow-container {
+        display: none;
+    }
+
+}
+
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header {
+    position: relative;
+    z-index: 2;
+
+    background-color: rgba(13, 41, 34, 0.9);
+
+    border-bottom: 1px solid rgba(214, 180, 106, 0.35);
+
+    padding: 20px 40px;
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+nav {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    max-width: 1200px;
+
+    margin: auto;
+}
+
+.logo {
+    color: var(--dore-clair);
+
+    font-size: 1.2rem;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+
+    color: var(--creme);
+
+    transition: color 0.3s ease;
+}
+
+nav ul a {
+    padding: 8px 0;
+
+    position: relative;
+}
+
+nav ul a::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    width: 0;
+    height: 2px;
+
+    background-color: var(--dore);
+
+    transition: width 0.3s ease;
+}
+
+nav ul a:hover::after,
+nav ul a.actif::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: var(--dore-clair);
+}
+
+
+/* ==========================================
+   ACCUEIL
+========================================== */
+
+#accueil {
+    position: relative;
+    z-index: 1;
+
+    min-height: 85vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background:
+        linear-gradient(
+            rgba(13, 41, 34, 0.55),
+            rgba(13, 41, 34, 0.75)
+        ),
+        url("fond_ecran.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+
+/* ==========================================
+   BADGE
+========================================== */
+
+.badge {
+    color: var(--dore-clair);
+
+    border: 1px solid var(--dore);
+
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================
+   TITRES
+========================================== */
+
+#accueil h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    line-height: 1.1;
+
+    text-shadow: 0 5px 20px var(--ombre);
+
+    margin-bottom: 25px;
+}
+
+#accueil h1 span {
+    display: block;
+
+    color: var(--dore-clair);
+
+    font-size: 0.8em;
+}
+
+#accueil h2 {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+
+    font-weight: normal;
+
+    max-width: 700px;
+
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   SEPARATEUR
+========================================== */
+
+.separateur {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    color: var(--dore);
+
+    margin: 25px 0;
+}
+
+.separateur span {
+    font-size: 1.5rem;
+}
+
+
+/* ==========================================
+   COMPTE A REBOURS
+========================================== */
+
+.carte-compte {
+    width: min(650px, 100%);
+
+    padding: 30px 20px;
+
+    margin: 10px 0 35px;
+
+    border: 1px solid rgba(214, 180, 106, 0.65);
+
+    border-radius: 20px;
+
+    background-color: rgba(255, 248, 237, 0.08);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 10px 40px var(--ombre);
+}
+
+.titre-compte {
+    color: var(--dore-clair);
+
+    font-size: 1.1rem;
+
+    margin-bottom: 25px;
+
+    letter-spacing: 1px;
+}
+
+
+/* Grille du compte à rebours */
+
+.compte-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+/* Cartes des unités */
+
+.unite {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px 8px;
+
+    border-radius: 12px;
+
+    background-color: rgba(255, 248, 237, 0.08);
+
+    border: 1px solid rgba(255, 248, 237, 0.12);
+}
+
+
+/* Chiffres */
+
+.nombre {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+
+    font-weight: bold;
+
+    color: var(--dore-clair);
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* Labels */
+
+.label {
+    font-size: 0.8rem;
+
+    color: var(--creme);
+
+    opacity: 0.8;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+/* Date */
+
+.date-evenement {
+    margin-top: 25px;
+
+    font-size: 1rem;
+
+    color: var(--creme);
+}
+
+
+/* Message */
+
+.message-compte {
+    margin-top: 15px;
+
+    font-size: 0.9rem;
+
+    opacity: 0.8;
+}
+
+
+/* ==========================================
+   BOUTON
+========================================== */
+
+.bouton {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 15px 30px;
+
+    background-color: var(--rouge);
+
+    color: var(--blanc);
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border: 1px solid var(--dore);
+
+    border-radius: 50px;
+
+    box-shadow: 0 5px 20px var(--ombre);
+
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.bouton:hover {
+    transform: translateY(-3px);
+
+    background-color: var(--rouge-clair);
+
+    box-shadow: 0 8px 25px var(--ombre);
+}
+
+.bouton span {
+    transition: transform 0.3s ease;
+}
+
+.bouton:hover span {
+    transform: translateX(5px);
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    background-color: var(--vert-profond);
+
+    border-top: 1px solid rgba(214, 180, 106, 0.35);
+
+    color: var(--creme);
+}
+
+.footer-decoration {
+    color: var(--dore);
+
+    margin-bottom: 12px;
+
+    letter-spacing: 5px;
+}
+
+.footer-message {
+    margin-top: 8px;
+
+    font-size: 0.85rem;
+
+    opacity: 0.7;
+}
+
+
+/* ==========================================
+   ACCESSIBILITE
+========================================== */
+
+a:focus-visible {
+    outline: 3px solid var(--dore-clair);
+
+    outline-offset: 5px;
+
+    border-radius: 5px;
+}
+
+
+/* ==========================================
+   RESPONSIVE : TABLETTES ET TELEPHONES
+========================================== */
+
+@media screen and (max-width: 600px) {
+
+    header {
+        padding: 18px 15px;
+    }
+
+    nav {
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    #accueil {
+        min-height: 80vh;
+
+        padding: 45px 15px;
+    }
+
+    #accueil h1 {
+        letter-spacing: 2px;
+    }
+
+    .carte-compte {
+        padding: 20px 10px;
+    }
+
+    .compte-grid {
+        gap: 8px;
+    }
+
+    .unite {
+        padding: 12px 4px;
+    }
+
+    .label {
+        font-size: 0.65rem;
+
+        letter-spacing: 0;
+    }
+
+    .bouton {
+        padding: 13px 20px;11
+    }
+
+}
+
+
+/* ==========================================
+   ANIMATIONS : OPTION REDUCTION
+========================================== 
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+
+        transition: none !important;
+
+        scroll-behavior: auto !important;
+    }
+
+}*/

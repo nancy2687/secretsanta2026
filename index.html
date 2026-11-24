@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secret Santa 2026</title>
+
+    <meta name="description" content="Le site de notre Secret Santa 2026 !">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Décoration : flocons 
+    <div class="flocon flocon-1" aria-hidden="true">❄</div>
+    <div class="flocon flocon-2" aria-hidden="true">❄</div>
+    <div class="flocon flocon-3" aria-hidden="true">❄</div>
+    <div class="flocon flocon-4" aria-hidden="true">✦</div>-->
+
+    <!-- Navigation -->
+    <header>
+        <nav aria-label="Navigation principale">
+
+            <a href="index.html" class="logo">
+                🎄 Secret Santa
+            </a>
+
+            <ul>
+                <li>
+                    <a href="index.html" class="actif">
+                        Accueil
+                    </a>
+                </li>
+
+                <li>
+                    <a href="jeux.html">
+                        Jeux de Noël
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+    </header>
+
+
+    <!-- Contenu principal -->
+    <main>
+
+        <section id="accueil">
+
+            <div class="badge">
+                ✦ ÉDITION 2026 ✦
+            </div>
+
+            <h1>
+                SECRET SANTA
+                <span>2026</span>
+            </h1>
+
+            <h2>
+                Bienvenue sur le site du Secret Santa 2026
+            </h2>
+
+            <div class="separateur">
+                <span>✧</span>
+            </div>
+
+
+            <!-- Compte à rebours -->
+            <div class="carte-compte">
+
+                <p class="titre-compte">
+                    Le grand rendez-vous approche...
+                </p>
+
+                <div class="compte-grid">
+
+                    <div class="unite">
+                        <span class="nombre cd-d">00</span>
+                        <span class="label">Jours</span>
+                    </div>
+
+                    <div class="unite">
+                        <span class="nombre cd-h">00</span>
+                        <span class="label">Heures</span>
+                    </div>
+
+                    <div class="unite">
+                        <span class="nombre cd-m">00</span>
+                        <span class="label">Minutes</span>
+                    </div>
+
+                    <div class="unite">
+                        <span class="nombre cd-s">00</span>
+                        <span class="label">Secondes</span>
+                    </div>
+
+                </div>
+
+                <p class="date-evenement">
+                    🎁 12 décembre 2026
+                </p>
+
+                <p id="message-compte" class="message-compte">
+                    Le compte à rebours avant la remise des cadeaux !
+                </p>
+
+            </div>
+
+
+            <!-- Bouton vers la page de jeux -->
+            <a href="jeux.html" class="bouton">
+                Découvrir les jeux de Noël
+                <span aria-hidden="true">→</span>
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- Pied de page -->
+       <footer>
+        <div class="footer-decoration">✦ ❄ ✦</div>
+
+        <p>Secret Santa 2026</p>
+
+        <p class="footer-message">
+            Que la magie de Noël commence !
+        </p>
+    </footer>
+
+    <script src="snow.js"></script>
+
+
+    <!-- Compte à rebours -->
+    <script>
+
+        const dateEvenement = new Date("2026-12-12T12:00:00+01:00").getTime();
+
+        const jours = document.querySelector(".cd-d");
+        const heures = document.querySelector(".cd-h");
+        const minutes = document.querySelector(".cd-m");
+        const secondes = document.querySelector(".cd-s");
+        const message = document.querySelector("#message-compte");
+
+        function actualiserCompte() {
+
+            const maintenant = Date.now();
+            const difference = dateEvenement - maintenant;
+
+            if (difference <= 0) {
+
+                document.querySelector(".compte-grid").style.display = "none";
+
+                message.textContent = "C'est le moment de remettre les cadeaux ! 🎁";
+
+                return;
+            }
+
+            const j = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+            const h = Math.floor(
+                (difference / (1000 * 60 * 60)) % 24
+            );
+
+            const m = Math.floor(
+                (difference / (1000 * 60)) % 60
+            );
+
+            const s = Math.floor(
+                (difference / 1000) % 60
+            );
+
+            jours.textContent = j;
+            heures.textContent = String(h).padStart(2, "0");
+            minutes.textContent = String(m).padStart(2, "0");
+            secondes.textContent = String(s).padStart(2, "0");
+        }
+
+        actualiserCompte();
+
+        setInterval(actualiserCompte, 1000);
+
+    </script>
+
+</body>
+
+</html>
